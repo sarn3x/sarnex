@@ -28,7 +28,6 @@
       text-align: center;
     }
 
-    /* Sfondo acqua avanzato con onde dinamiche */
     .water-bg {
       position: fixed;
       top: 0;
@@ -71,7 +70,6 @@
       100% { background-position-x: 1440px; }
     }
 
-    /* Bolle fluttuanti */
     .bubble {
       position: absolute;
       background: rgba(255, 255, 255, 0.15);
@@ -87,7 +85,6 @@
       100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
     }
 
-    /* Container principale */
     .container {
       max-width: 800px;
       margin: 0 auto;
@@ -99,7 +96,6 @@
       align-items: center;
     }
 
-    /* Logo con effetto guscio */
     .logo {
       width: 180px;
       height: 180px;
@@ -123,7 +119,6 @@
         inset 0 0 30px rgba(255, 255, 255, 0.5);
     }
 
-    /* Effetto luce rotante attorno al logo */
     .light-ring {
       position: absolute;
       width: 200px;
@@ -142,7 +137,6 @@
       100% { transform: translate(-50%, -50%) rotate(360deg); }
     }
 
-    /* Titolo principale con effetto onda */
     .main-title {
       font-family: 'Bungee', cursive;
       font-size: 3.5rem;
@@ -199,7 +193,6 @@
       100% { background-position-x: 120px; }
     }
 
-    /* Sottotitolo */
     .subtitle {
       font-family: 'Seaweed Script', cursive;
       font-size: 1.8rem;
@@ -209,7 +202,6 @@
       position: relative;
     }
 
-    /* Pulsanti con tema corallo/ancora */
     .btn-container {
       display: flex;
       flex-direction: column;
@@ -248,7 +240,6 @@
       background: rgba(13, 43, 100, 0.9);
     }
 
-    /* Decorazione corallo/ancora */
     .btn::before {
       content: "";
       position: absolute;
@@ -268,7 +259,6 @@
       opacity: 0.6;
     }
 
-    /* Effetto onda al passaggio del mouse */
     .btn::after {
       content: "";
       position: absolute;
@@ -320,7 +310,6 @@
       line-height: 1.4;
     }
 
-    /* Effetto acqua al click */
     .water-effect {
       position: absolute;
       width: 10px;
@@ -337,7 +326,6 @@
       100% { transform: scale(30); opacity: 0; }
     }
 
-    /* Decorazione corallo laterale */
     .coral-decoration {
       position: fixed;
       width: 150px;
@@ -354,26 +342,67 @@
       0% { transform: translateY(0) rotate(0deg); }
       100% { transform: translateY(-20px) rotate(2deg); }
     }
+
+    /* ========== SOLO MOBILE ========== */
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px 15px;
+      }
+      .main-title {
+        font-size: 2.3rem;
+        margin: 15px 0;
+        line-height: 1.2;
+      }
+      .subtitle {
+        font-size: 1.4rem;
+        margin-bottom: 35px;
+        line-height: 1.3;
+      }
+      .logo {
+        width: 130px;
+        height: 130px;
+      }
+      .light-ring {
+        width: 150px;
+        height: 150px;
+      }
+      .btn-container {
+        gap: 20px;
+      }
+      .btn {
+        padding: 18px;
+      }
+      .btn-icon {
+        width: 45px;
+        height: 45px;
+        margin-right: 15px;
+      }
+      .btn-title {
+        font-size: 1.3rem;
+      }
+      .btn-desc {
+        font-size: 0.95rem;
+      }
+      .waves {
+        height: 60px;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Sfondo dinamico -->
   <div class="water-bg"></div>
   <div class="waves"></div>
   <div class="coral-decoration"></div>
 
   <div class="container">
-    <!-- Logo con effetto luce -->
     <div style="position: relative; display: inline-block;">
       <img src="./shop.jpg" alt="Sarnex Logo" class="logo">
       <div class="light-ring"></div>
     </div>
 
-    <!-- Titolo con effetto onda -->
     <h1 class="main-title">SAREX.SHOP</h1>
     <p class="subtitle">La potenza di Blastoise nelle tue collezioni</p>
 
-    <!-- Pulsanti con tema corallo/ancora -->
     <div class="btn-container">
       <a href="https://www.vinted.it/member/154498609-salvatorex" class="btn" id="vinted">
         <img src="./vinted.jpg" class="btn-icon" alt="Vinted">
@@ -395,7 +424,7 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png" class="btn-icon" alt="Facebook">
         <div class="btn-content">
           <div class="btn-title">Facebook</div>
-          <div class="btn-desc">Posto novità e contenuti sul collezionismo </div>
+          <div class="btn-desc">Posto novità e contenuti sul collezionismo</div>
         </div>
       </a>
 
@@ -410,36 +439,28 @@
   </div>
 
   <script>
-    // Crea bolle fluttuanti
     function createBubbles() {
-      const bubbleCount = 15;
+      const bubbleCount = window.innerWidth < 600 ? 10 : 15;
       for (let i = 0; i < bubbleCount; i++) {
         const bubble = document.createElement('div');
         bubble.className = 'bubble';
-        
-        // Posizione casuale
         const size = Math.random() * 20 + 10;
         const left = Math.random() * 100;
         const delay = Math.random() * 15;
         const duration = Math.random() * 20 + 10;
-        
         bubble.style.width = `${size}px`;
         bubble.style.height = `${size}px`;
         bubble.style.left = `${left}vw`;
         bubble.style.bottom = `-${size}px`;
         bubble.style.animationDuration = `${duration}s`;
         bubble.style.animationDelay = `${delay}s`;
-        
         document.body.appendChild(bubble);
       }
     }
 
-    // Effetto acqua al click
     document.querySelectorAll('.btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
-        
-        // Crea effetto acqua
         for (let i = 0; i < 3; i++) {
           const effect = document.createElement('div');
           effect.className = 'water-effect';
@@ -447,20 +468,12 @@
           effect.style.top = (e.clientY - e.target.getBoundingClientRect().top + (Math.random() * 40 - 20)) + 'px';
           effect.style.animationDelay = (i * 0.2) + 's';
           btn.appendChild(effect);
-          
-          setTimeout(() => {
-            effect.remove();
-          }, 800);
+          setTimeout(() => effect.remove(), 800);
         }
-        
-        // Apri il link dopo l'animazione
-        setTimeout(() => {
-          window.open(btn.href, '_blank');
-        }, 300);
+        setTimeout(() => window.open(btn.href, '_blank'), 300);
       });
     });
 
-    // Inizializza le bolle quando la pagina è caricata
     window.addEventListener('load', createBubbles);
   </script>
 </body>
