@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sarnex.Shop - Blastoise Collection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:wght@700&family=Roboto:wght@400;700&family=Seaweed+Script&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-dark: #0d2b64;
+      --blue-medium: #1a4d8f;
+      --blue-light: #4fa3e0;
+      --shell-dark: #d6891a;
+      --shell-light: #f5a623;
+      --wave-color: rgba(79, 163, 224, 0.4);
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #000428 0%, #003b6b 100%);
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+      text-align: center;
+    }
+
+    /* Sfondo acqua avanzato con onde dinamiche */
+    .water-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(79, 163, 224, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(79, 163, 224, 0.15) 0%, transparent 30%);
+      z-index: -2;
+    }
+
+    .waves {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%234fa3e0" fill-opacity="0.3" d="M0,256L48,261.3C96,267,192,277,288,266.7C384,256,480,224,576,213.3C672,203,768,213,864,229.3C960,245,1056,267,1152,272C1248,277,1344,267,1392,261.3L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x;
+      background-size: 1440px 100%;
+      animation: wave 15s linear infinite;
+      z-index: -1;
+      opacity: 0.8;
+    }
+
+    .waves::before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%234fa3e0" fill-opacity="0.2" d="M0,256L48,261.3C96,267,192,277,288,266.7C384,256,480,224,576,213.3C672,203,768,213,864,229.3C960,245,1056,267,1152,272C1248,277,1344,267,1392,261.3L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x;
+      background-size: 1600px 100%;
+      animation: wave 20s linear infinite reverse;
+    }
+
+    @keyframes wave {
+      0% { background-position-x: 0; }
+      100% { background-position-x: 1440px; }
+    }
+
+    /* Bolle fluttuanti */
+    .bubble {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      animation: float linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0); opacity: 0; }
+      10% { opacity: 0.5; }
+      90% { opacity: 0.5; }
+      100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+    }
+
+    /* Container principale */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Logo con effetto guscio */
+    .logo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 5px solid var(--blue-light);
+      object-fit: cover;
+      box-shadow: 
+        0 0 30px rgba(79, 163, 224, 0.6),
+        inset 0 0 20px rgba(255, 255, 255, 0.3);
+      margin-bottom: 20px;
+      transition: all 0.5s;
+      background: rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 3;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+      box-shadow: 
+        0 0 50px rgba(79, 163, 224, 0.8),
+        inset 0 0 30px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Effetto luce rotante attorno al logo */
+    .light-ring {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 2px dashed rgba(79, 163, 224, 0.4);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: rotate 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes rotate {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Titolo principale con effetto onda */
+    .main-title {
+      font-family: 'Bungee', cursive;
+      font-size: 3.5rem;
+      background: linear-gradient(to right, #fff, var(--blue-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 20px 0;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      letter-spacing: 2px;
+      position: relative;
+      display: inline-block;
+      animation: wave-text 4s ease-in-out infinite alternate;
+      padding: 0 20px;
+    }
+
+    @keyframes wave-text {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .main-title::after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 10"><path fill="%234fa3e0" d="M0,5 C15,10 30,0 45,5 S75,10 90,5 S105,0 120,5" /></svg>') repeat-x;
+      background-size: 120px 100%;
+      animation: wave-title 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    .main-title::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, rgba(79, 163, 224, 0.4) 0%, transparent 70%);
+      z-index: -1;
+      animation: pulse-light 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse-light {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.7; }
+    }
+
+    @keyframes wave-title {
+      0% { background-position-x: 0; }
+      100% { background-position-x: 120px; }
+    }
+
+    /* Sottotitolo */
+    .subtitle {
+      font-family: 'Seaweed Script', cursive;
+      font-size: 1.8rem;
+      margin-bottom: 50px;
+      color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    /* Pulsanti con tema corallo/ancora */
+    .btn-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      max-width: 550px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      padding: 25px;
+      background: rgba(13, 43, 100, 0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.4),
+        inset 0 0 0 1px rgba(79, 163, 224, 0.4);
+      transition: all 0.4s;
+      border: 2px solid var(--blue-light);
+      position: relative;
+      overflow: hidden;
+      text-align: left;
+      z-index: 2;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 
+        0 12px 35px rgba(0, 0, 0, 0.5),
+        inset 0 0 0 1px rgba(79, 163, 224, 0.6);
+      background: rgba(13, 43, 100, 0.9);
+    }
+
+    /* Decorazione corallo/ancora */
+    .btn::before {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      right: -15px;
+      width: 60px;
+      height: 60px;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%234fa3e0" fill-opacity="0.4" d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2M15.5 8C16.3 8 17 8.7 17 9.5V11H7V9.5C7 8.7 7.7 8 8.5 8H15.5M6 12V19H7V13H17V19H18V12H6Z"/></svg>') no-repeat;
+      background-size: contain;
+      transform: rotate(15deg);
+      z-index: -1;
+      transition: all 0.3s;
+    }
+
+    .btn:hover::before {
+      transform: rotate(25deg) scale(1.1);
+      opacity: 0.6;
+    }
+
+    /* Effetto onda al passaggio del mouse */
+    .btn::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--blue-light);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease-out;
+    }
+
+    .btn:hover::after {
+      transform: scaleX(1);
+    }
+
+    .btn-icon {
+      width: 60px;
+      height: 60px;
+      margin-right: 20px;
+      object-fit: contain;
+      filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.3));
+      flex-shrink: 0;
+      transition: all 0.3s;
+    }
+
+    .btn:hover .btn-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .btn-content {
+      flex-grow: 1;
+    }
+
+    .btn-title {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      color: white;
+      display: flex;
+      align-items: center;
+      text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-desc {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: normal;
+      line-height: 1.4;
+    }
+
+    /* Effetto acqua al click */
+    .water-effect {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: rgba(79, 163, 224, 0.8);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: waterSplash 0.8s forwards;
+      z-index: -1;
+    }
+
+    @keyframes waterSplash {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(30); opacity: 0; }
+    }
+
+    /* Decorazione corallo laterale */
+    .coral-decoration {
+      position: fixed;
+      width: 150px;
+      height: 300px;
+      bottom: 0;
+      right: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 200"><path fill="%23d6891a" fill-opacity="0.15" d="M20,200 C40,180 30,150 50,130 C70,110 60,80 80,60 C90,50 85,30 70,20 C50,5 30,15 20,30 C10,45 5,70 10,90 C15,110 0,130 10,150 C20,170 10,190 20,200 Z"/></svg>') no-repeat;
+      background-size: contain;
+      z-index: -1;
+      animation: sway 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes sway {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-20px) rotate(2deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sfondo dinamico -->
+  <div class="water-bg"></div>
+  <div class="waves"></div>
+  <div class="coral-decoration"></div>
+
+  <div class="container">
+    <!-- Logo con effetto luce -->
+    <div style="position: relative; display: inline-block;">
+      <img src="./shop.jpg" alt="Sarnex Logo" class="logo">
+      <div class="light-ring"></div>
+    </div>
+
+    <!-- Titolo con effetto onda -->
+    <h1 class="main-title">SAREX.SHOP</h1>
+    <p class="subtitle">La potenza di Blastoise nelle tue collezioni</p>
+
+    <!-- Pulsanti con tema corallo/ancora -->
+    <div class="btn-container">
+      <a href="https://www.vinted.it/member/154498609-salvatorex" class="btn" id="vinted">
+        <img src="./vinted.jpg" class="btn-icon" alt="Vinted">
+        <div class="btn-content">
+          <div class="btn-title">Vinted</div>
+          <div class="btn-desc">Scopri le mie offerte su carte da collezione e altri prodotti a prezzi imbattibili</div>
+        </div>
+      </a>
+
+      <a href="https://www.instagram.com/sarn3x" class="btn" id="instagram">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png" class="btn-icon" alt="Instagram">
+        <div class="btn-content">
+          <div class="btn-title">Instagram</div>
+          <div class="btn-desc">Condivido la mia passione per il collezionismo</div>
+        </div>
+      </a>
+
+      <a href="https://www.facebook.com/share/17zoS31hWy" class="btn" id="facebook">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png" class="btn-icon" alt="Facebook">
+        <div class="btn-content">
+          <div class="btn-title">Facebook</div>
+          <div class="btn-desc">Posto novità e contenuti sul collezionismo </div>
+        </div>
+      </a>
+
+      <a href="https://t.me/SARN3X" class="btn" id="telegram">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Telegram_logo.svg/2048px-Telegraph_logo.svg.png" class="btn-icon" alt="Telegram">
+        <div class="btn-content">
+          <div class="btn-title">Telegram</div>
+          <div class="btn-desc">Scrivimi per qualsiasi informazione, sono sempre disponibile a rispondere</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Crea bolle fluttuanti
+    function createBubbles() {
+      const bubbleCount = 15;
+      for (let i = 0; i < bubbleCount; i++) {
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        
+        // Posizione casuale
+        const size = Math.random() * 20 + 10;
+        const left = Math.random() * 100;
+        const delay = Math.random() * 15;
+        const duration = Math.random() * 20 + 10;
+        
+        bubble.style.width = `${size}px`;
+        bubble.style.height = `${size}px`;
+        bubble.style.left = `${left}vw`;
+        bubble.style.bottom = `-${size}px`;
+        bubble.style.animationDuration = `${duration}s`;
+        bubble.style.animationDelay = `${delay}s`;
+        
+        document.body.appendChild(bubble);
+      }
+    }
+
+    // Effetto acqua al click
+    document.querySelectorAll('.btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Crea effetto acqua
+        for (let i = 0; i < 3; i++) {
+          const effect = document.createElement('div');
+          effect.className = 'water-effect';
+          effect.style.left = (e.clientX - e.target.getBoundingClientRect().left + (Math.random() * 40 - 20)) + 'px';
+          effect.style.top = (e.clientY - e.target.getBoundingClientRect().top + (Math.random() * 40 - 20)) + 'px';
+          effect.style.animationDelay = (i * 0.2) + 's';
+          btn.appendChild(effect);
+          
+          setTimeout(() => {
+            effect.remove();
+          }, 800);
+        }
+        
+        // Apri il link dopo l'animazione
+        setTimeout(() => {
+          window.open(btn.href, '_blank');
+        }, 300);
+      });
+    });
+
+    // Inizializza le bolle quando la pagina è caricata
+    window.addEventListener('load', createBubbles);
+  </script>
+</body>
+</html>
